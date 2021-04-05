@@ -315,8 +315,8 @@ class Kitti_util(Kitti):
     def __point_beam(self, points):
         self.__upload_points(points)
         self.__theta = np.arccos(self.__z/self.__d)
-        xyz_ = np.hstack(
-            (self.__x[:, None], self.__y[:, None], self.__z[:, None], self.__f[:, None], self.__theta[:, None]))
+        xyz_ = np.hstack((self.__x[:, None], self.__y[:, None], self.__z[:, None], self.__f[:, None], self.__theta[:, None]))
+        # xyz_ = xyz_[np.argsort(xyz_[:, 4]), :]
         xyz_ = xyz_.T
 
         return xyz_
@@ -603,7 +603,7 @@ class Kitti_util(Kitti):
         down_rate = 4
         counter = 0
         n = xyz_v.shape[1]
-        angle_resolution = 0.4*np.pi/180
+        angle_resolution = 0.03*np.pi/180
 
         for i in range(1, n):
             if np.abs(xyz_v[4, i]-xyz_v[4, i-1]) >= angle_resolution:
