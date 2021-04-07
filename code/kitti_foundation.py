@@ -603,7 +603,7 @@ class Kitti_util(Kitti):
         down_rate = 4
         counter = 0
         n = xyz_v.shape[1]
-        angle_resolution = 0.03*np.pi/180
+        angle_resolution = 0.4*np.pi/180
 
         for i in range(1, n):
             if np.abs(xyz_v[4, i]-xyz_v[4, i-1]) >= angle_resolution:
