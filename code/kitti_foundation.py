@@ -314,11 +314,11 @@ class Kitti_util(Kitti):
 
     def __point_beam(self, points):
         self.__upload_points(points)
-        self.__theta = np.arccos(self.__z/self.__d)
-        xyz_ = np.hstack((self.__x[:, None], self.__y[:, None], self.__z[:, None], self.__f[:, None], self.__theta[:, None]))
+        self.__theta = np.arccos(self.__z / self.__d)
+        xyz_ = np.hstack((self.__x[:, None], self.__y[:, None],
+                         self.__z[:, None], self.__f[:, None], self.__theta[:, None]))
         # xyz_ = xyz_[np.argsort(xyz_[:, 4]), :]
         xyz_ = xyz_.T
-
         return xyz_
 
     def __point_matrix(self, points):
@@ -591,6 +591,7 @@ class Kitti_util(Kitti):
                  [  x_1   ,   x_2   , .. ]
         xyz_v =  [  y_1   ,   y_2   , .. ]
                  [  z_1   ,   z_2   , .. ]
+                 [  f_1   ,   f_2   , .. ]
                  [theta_1 , theta_2 , .. ]
         """
         xyz_v = self.__point_beam(points)
@@ -613,6 +614,13 @@ class Kitti_util(Kitti):
                 y_down.append(xyz_v[1, i])
                 z_down.append(xyz_v[2, i])
                 f_down.append(xyz_v[3, i])
+
+        # for i in range(1, n):
+        #     if np.abs(xyz_v[4, i]-xyz_v[4, 0]) <= angle_resolution:
+        #         x_down.append(xyz_v[0, i])
+        #         y_down.append(xyz_v[1, i])
+        #         z_down.append(xyz_v[2, i])
+        #         f_down.append(xyz_v[3, i])
 
         x_down = np.array(x_down)
         y_down = np.array(y_down)
